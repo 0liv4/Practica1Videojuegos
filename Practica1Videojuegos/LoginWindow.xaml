@@ -1,0 +1,143 @@
+﻿<Window x:Class="Practica1Videojuegos.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Inicio de Sesión" Height="520" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- FONDO ABSTRACTO APLICADO A TODA LA VENTANA -->
+    <Window.Background>
+        <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5" RadiusX="0.8" RadiusY="0.8">
+            <GradientStop Color="#4A0A18" Offset="0"/>
+            <GradientStop Color="#050002" Offset="1"/>
+        </RadialGradientBrush>
+    </Window.Background>
+
+    <Window.Resources>
+        <!-- Estilo del botón principal con degradado Carmesí/Vino -->
+        <Style x:Key="BotonRojo" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bordeBoton" CornerRadius="8" Padding="0,10">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#9E1A30" Offset="0"/>
+                                    <GradientStop Color="#5B0C1A" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bordeBoton" Property="Background" Value="#333333"/>
+                                <Setter Property="Foreground" Value="#777777"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo del botón Salir -->
+        <Style x:Key="BotonGris" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="8" Padding="0,10" BorderThickness="1.5">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#555555" Offset="0"/>
+                                    <GradientStop Color="#222222" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#2A2A2A" Offset="0"/>
+                                    <GradientStop Color="#151515" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#9E1A30" Offset="0"/>
+                                            <GradientStop Color="#5B0C1A" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="#1A0D0F"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- TARJETA DE LOGIN -->
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="15" Padding="40" Width="380" 
+                BorderThickness="1" BorderBrush="#20FFFFFF">
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#181818" Offset="0.0"/>
+                    <GradientStop Color="#0A0A0A" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="12" BlurRadius="30" Opacity="0.9"/>
+            </Border.Effect>
+
+            <StackPanel>
+
+                <TextBlock Text="INICIAR SESIÓN" Foreground="White" FontWeight="Black" FontSize="24" 
+                           HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+                <TextBlock Text="USUARIO" Foreground="#AAAAAA" FontWeight="Bold" FontSize="11" Margin="5,0,0,5"/>
+                <Border Background="#111111" BorderBrush="#222222" BorderThickness="1" CornerRadius="8" Margin="0,0,0,20">
+                    <TextBox x:Name="txtUsuario" Background="Transparent" Foreground="White" BorderThickness="0" 
+                             Padding="10,8" FontSize="14" CaretBrush="#9E1A30"/>
+                </Border>
+
+                <TextBlock Text="CONTRASEÑA" Foreground="#AAAAAA" FontWeight="Bold" FontSize="11" Margin="5,0,0,5"/>
+                <Border Background="#111111" BorderBrush="#222222" BorderThickness="1" CornerRadius="8" Margin="0,0,0,12">
+                    <PasswordBox x:Name="txtPassword" Background="Transparent" Foreground="White" BorderThickness="0" 
+                                 Padding="10,8" FontSize="14" CaretBrush="#9E1A30"/>
+                </Border>
+
+                <Label x:Name="lblMensaje" Foreground="#D62842" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                       Margin="0,0,0,18" Height="24" Padding="0" FontSize="12" FontWeight="SemiBold"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="btnLogin" Grid.Column="0" Content="ENTRAR" Style="{StaticResource BotonRojo}" Click="BtnLogin_Click"/>
+                    <Button x:Name="btnSalir" Grid.Column="2" Content="SALIR" Style="{StaticResource BotonGris}" Click="BtnSalir_Click"/>
+                </Grid>
+
+                <!-- Práctica 3: alta de un nuevo usuario en la tabla Usuarios de MySQL -->
+                <Button x:Name="btnNuevoUsuario" Content="NUEVO USUARIO" Style="{StaticResource BotonGris}"
+                        Margin="0,12,0,0" Click="BtnNuevoUsuario_Click"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

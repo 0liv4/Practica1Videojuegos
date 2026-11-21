@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  
   <PropertyGroup>
+    <!-- Configuración general y de compatibilidad WPF -->
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
@@ -18,6 +19,19 @@
     <Resource Include="img\beyondtwosouls.jpg" />
     <Resource Include="img\cyberpunk-box.jpg" />
     <Resource Include="img\eldenring.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="LoginWindow.xaml.cs">
+      <Generator></Generator>
+    </Compile>
+    <Compile Update="MainWindow.xaml.cs">
+      <Generator></Generator>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="26.10.0" />
   </ItemGroup>
 
 </Project>

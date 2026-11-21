@@ -6,10 +6,63 @@
         xmlns:local="clr-namespace:Practica1Videojuegos"
         mc:Ignorable="d"
         Title="Home Videojuegos" Height="450" Width="800"
-        Background="#121212">
+        WindowStartupLocation="CenterScreen">
+
+    <!-- FONDO GENERAL CON PROFUNDIDAD -->
+    <Window.Background>
+        <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5" RadiusX="0.8" RadiusY="0.8">
+            <GradientStop Color="#2A050E" Offset="0"/>
+            <GradientStop Color="#050002" Offset="1"/>
+        </RadialGradientBrush>
+    </Window.Background>
+
+    <Window.Resources>
+        <!-- Estilo para opciones activas (Con el reborde Vino Cromado) -->
+        <Style x:Key="MenuActivo" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#15FFFFFF" BorderThickness="1.5" CornerRadius="5" Margin="8,4" Padding="15,6">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#9E1A30" Offset="0"/>
+                                    <GradientStop Color="#5B0C1A" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo para opciones inactivas (Efecto cristal que se ilumina al pasar el ratón) -->
+        <Style x:Key="MenuInactivo" TargetType="Button">
+            <Setter Property="Foreground" Value="#AAAAAA"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent" BorderBrush="#20FFFFFF" BorderThickness="1" CornerRadius="5" Margin="8,4" Padding="15,6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="#70FFFFFF"/>
+                                <Setter Property="Background" Value="#10FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <Grid>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
@@ -20,49 +73,63 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-       
+        <!-- CABECERA CROMADA -->
         <Grid Grid.Row="0" Grid.Column="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                <Border BorderBrush="#555555" BorderThickness="1" CornerRadius="5" Margin="8,0">
-                    <Label Content="TIENDA" Margin="5,2" FontWeight="Bold" Foreground="White"/>
-                </Border>
+            <!-- Creamos 3 columnas para que los elementos no choquen entre sí -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!-- Espacio vacío a la izquierda -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Columna exacta para el menú central -->
+                <ColumnDefinition Width="*"/>
+                <!-- Espacio para el perfil a la derecha -->
+            </Grid.ColumnDefinitions>
 
-                <Border BorderBrush="#555555" BorderThickness="1" CornerRadius="5" Margin="8,0">
-                    <Label Content="COMUNIDAD" Margin="5,2" FontWeight="Bold" Foreground="White"/>
-                </Border>
-
-                <Border BorderBrush="#555555" BorderThickness="1" CornerRadius="5" Margin="8,0">
-                    <Label Content="SOPORTE" Margin="5,2" FontWeight="Bold" Foreground="White"/>
-                </Border>
-
+            <!-- Menú central -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Content="TIENDA" Style="{StaticResource MenuActivo}"/>
+                <Button Content="COMUNIDAD" Style="{StaticResource MenuInactivo}"/>
+                <Button Content="SOPORTE" Style="{StaticResource MenuInactivo}"/>
             </StackPanel>
 
-            <Label Content="Mi perfil" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0" Foreground="#AAAAAA"/>
+            <!-- Botón Cerrar Sesión a la derecha -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0">
+                <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" Style="{StaticResource MenuInactivo}" Click="BtnCerrarSesion_Click"/>
+            </StackPanel>
+
         </Grid>
 
-        
-        <Border Grid.Row="1" Grid.Column="0" Background="#1E1E1E" CornerRadius="10" Margin="10">
-           
-            <StackPanel Margin="10,20,10,10" VerticalAlignment="Top">
+        <!-- MENÚ LATERAL -->
+        <Border Grid.Row="1" Grid.Column="0" CornerRadius="10" Margin="10" BorderThickness="1" BorderBrush="#15FFFFFF">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#181818" Offset="0.0"/>
+                    <GradientStop Color="#0A0A0A" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="8" BlurRadius="20" Opacity="0.7"/>
+            </Border.Effect>
 
-                <Border BorderBrush="#FF4655" BorderThickness="1.5" CornerRadius="5" Margin="0,8">
-                    <Label Content="Destacados" HorizontalAlignment="Center" Margin="0,2" Foreground="White" FontWeight="Bold"/>
-                </Border>
-
-                <Border BorderBrush="#444444" BorderThickness="1" CornerRadius="5" Margin="0,8">
-                    <Label Content="Mis juegos" HorizontalAlignment="Center" Margin="0,2" Foreground="#AAAAAA"/>
-                </Border>
-
-                <Border BorderBrush="#444444" BorderThickness="1" CornerRadius="5" Margin="0,8">
-                    <Label Content="Config." HorizontalAlignment="Center" Margin="0,2" Foreground="#AAAAAA"/>
-                </Border>
-
+            <StackPanel Margin="5,20,5,10" VerticalAlignment="Top">
+                <Button Content="Destacados" Style="{StaticResource MenuActivo}"/>
+                <Button Content="Mis juegos" Style="{StaticResource MenuInactivo}"/>
+                <Button Content="Config." Style="{StaticResource MenuInactivo}"/>
             </StackPanel>
         </Border>
 
-       
-        <Border Grid.Row="1" Grid.Column="1" Background="#1E1E1E" CornerRadius="10" Margin="10,10,20,20">
+        <!-- ZONA CENTRAL -->
+        <Border Grid.Row="1" Grid.Column="1" CornerRadius="10" Margin="10,10,20,20" BorderThickness="1" BorderBrush="#15FFFFFF">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#181818" Offset="0.0"/>
+                    <GradientStop Color="#0A0A0A" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="10" BlurRadius="25" Opacity="0.7"/>
+            </Border.Effect>
 
             <Grid Margin="20">
                 <Grid.RowDefinitions>
@@ -70,47 +137,68 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                
                 <Label Grid.Row="0" Content="Juegos Destacados" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,10"/>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                    
+                    <!-- JUEGO 1 -->
                     <StackPanel Margin="20,0" VerticalAlignment="Top">
-                        <Border BorderBrush="#FF4655" BorderThickness="2" CornerRadius="8" Width="130" Height="180">
+                        <Border BorderThickness="2" CornerRadius="8" Width="130" Height="180">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#9E1A30" Offset="0"/>
+                                    <GradientStop Color="#5B0C1A" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
                             <Border.Background>
                                 <ImageBrush ImageSource="/img/beyondtwosouls.jpg" Stretch="UniformToFill"/>
                             </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="5" BlurRadius="15" Opacity="0.8"/>
+                            </Border.Effect>
                         </Border>
-                        
-                        <TextBlock Text="Beyond: Two Souls" Foreground="#CCCCCC" TextAlignment="Center" TextWrapping="Wrap" Width="130" Margin="0,10,0,0" FontWeight="Bold" FontSize="13"/>
+                        <TextBlock Text="Beyond: Two Souls" Foreground="#CCCCCC" TextAlignment="Center" TextWrapping="Wrap" Width="130" Margin="0,15,0,0" FontWeight="Bold" FontSize="13"/>
                     </StackPanel>
 
-                    
+                    <!-- JUEGO 2 -->
                     <StackPanel Margin="20,0" VerticalAlignment="Top">
-                        <Border BorderBrush="#FF4655" BorderThickness="2" CornerRadius="8" Width="130" Height="180">
+                        <Border BorderThickness="2" CornerRadius="8" Width="130" Height="180">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#9E1A30" Offset="0"/>
+                                    <GradientStop Color="#5B0C1A" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
                             <Border.Background>
                                 <ImageBrush ImageSource="/img/cyberpunk-box.jpg" Stretch="UniformToFill"/>
                             </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="5" BlurRadius="15" Opacity="0.8"/>
+                            </Border.Effect>
                         </Border>
-                        <TextBlock Text="Cyberpunk 2077" Foreground="#CCCCCC" TextAlignment="Center" TextWrapping="Wrap" Width="130" Margin="0,10,0,0" FontWeight="Bold" FontSize="13"/>
+                        <TextBlock Text="Cyberpunk 2077" Foreground="#CCCCCC" TextAlignment="Center" TextWrapping="Wrap" Width="130" Margin="0,15,0,0" FontWeight="Bold" FontSize="13"/>
                     </StackPanel>
 
-                    
+                    <!-- JUEGO 3 -->
                     <StackPanel Margin="20,0" VerticalAlignment="Top">
-                        <Border BorderBrush="#FF4655" BorderThickness="2" CornerRadius="8" Width="130" Height="180">
+                        <Border BorderThickness="2" CornerRadius="8" Width="130" Height="180">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#9E1A30" Offset="0"/>
+                                    <GradientStop Color="#5B0C1A" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
                             <Border.Background>
                                 <ImageBrush ImageSource="/img/eldenring.jpeg" Stretch="UniformToFill"/>
                             </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="5" BlurRadius="15" Opacity="0.8"/>
+                            </Border.Effect>
                         </Border>
-                        <TextBlock Text="Elden Ring" Foreground="#CCCCCC" TextAlignment="Center" TextWrapping="Wrap" Width="130" Margin="0,10,0,0" FontWeight="Bold" FontSize="13"/>
+                        <TextBlock Text="Elden Ring" Foreground="#CCCCCC" TextAlignment="Center" TextWrapping="Wrap" Width="130" Margin="0,15,0,0" FontWeight="Bold" FontSize="13"/>
                     </StackPanel>
-
                 </StackPanel>
-
             </Grid>
-
         </Border>
-
     </Grid>
 </Window>
